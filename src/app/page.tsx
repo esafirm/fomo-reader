@@ -1,11 +1,11 @@
 import Image from 'next/image';
 
 import Card from './components/Card';
-import { getFeeds } from './repo/DataFetcher';
-import { Feed } from './repo/Feed';
+import DataFetcher from './repo/DataFetcher';
+import { Feed } from './repo/DataTypes';
 
 export default async function FeedPage() {
-  const feeds = (await getFeeds()).data;
+  const feeds = (await DataFetcher.getFeeds()).data;
 
   return (
     <div className="grid grid-cols-1 gap-4 py-4">
