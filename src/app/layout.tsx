@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import Link from 'next/link';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -16,7 +17,36 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <div className="flex flex-col px-32">
+          <NavBar />
+          {children}
+        </div>
+      </body>
     </html>
+  );
+}
+
+const NavMenus = [
+  { target: '/', label: 'Home' },
+  { target: '/review', label: 'Review' },
+];
+
+function NavBar() {
+  return (
+    <div className="p-4 space-x-2 mt-4">
+      <span className="text-xl bg-slate-100 rounded px-4 py-2 tracking-tighter font-bold">
+        FOMO Reader
+      </span>
+
+      {NavMenus.map((menu) => (
+        <Link
+          className="rounded px-4 py-2 hover:bg-slate-300"
+          href={menu.target}
+        >
+          {menu.label}
+        </Link>
+      ))}
+    </div>
   );
 }

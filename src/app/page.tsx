@@ -1,8 +1,6 @@
-import Image from 'next/image';
-
-import Card from './components/Card';
-import DataFetcher from './repo/DataFetcher';
-import { Feed } from './repo/DataTypes';
+import Card from '@/components/Card';
+import User from '@/components/User';
+import DataFetcher from '@/repo/DataFetcher';
 
 export default async function FeedPage() {
   const feeds = (await DataFetcher.getFeeds()).data;
@@ -13,7 +11,7 @@ export default async function FeedPage() {
         .filter((f) => f.inner.user)
         .map((feed, index) => (
           <Card key={index}>
-            <UserSection feed={feed} />
+            <User user={feed.inner.user} />
 
             <div className="font-bold text-xl">{feed.inner.title}</div>
             <div className="text-gray-600 m-t-4">{feed.inner.content}</div>
@@ -24,29 +22,6 @@ export default async function FeedPage() {
             </div>
           </Card>
         ))}
-    </div>
-  );
-}
-
-function UserSection({ feed }: { feed: Feed }) {
-  return (
-    <div className="flex flex-row mb-4">
-      <Image
-        src={feed.inner.user.profilePictureUrl ?? ''}
-        alt="avatar"
-        className="rounded-full mr-4"
-        width={30}
-        height={30}
-        style={{
-          objectFit: 'contain',
-        }}
-      />
-      <div>
-        <div className="font-bold text-gray-600">
-          {feed.inner.user.username}
-        </div>
-        <div>{feed.inner.user.companyName}</div>
-      </div>
     </div>
   );
 }
