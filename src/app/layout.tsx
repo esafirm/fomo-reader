@@ -30,6 +30,7 @@ export default function RootLayout({
 const NavMenus = [
   { target: '/', label: 'Home' },
   { target: '/review', label: 'Review' },
+  { target: '/salary', label: 'Salary' },
 ];
 
 function NavBar() {

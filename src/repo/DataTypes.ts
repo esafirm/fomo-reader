@@ -146,7 +146,7 @@ export type Salary = {
     baseMonthlySalaryInRupiah: number;
     annualBonusInRupiah: null | number;
     annualMarketPriceEquityInRupiah: null | number;
-    allowances: unknown[];
+    allowances: string[];
     jobTitle: JobTitle;
     marketingConsented: boolean;
     type: string;

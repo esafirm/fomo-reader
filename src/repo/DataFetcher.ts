@@ -5,7 +5,7 @@ const BASE_URL = 'https://fomo.azurewebsites.net';
 
 class DataFetcher {
   static async getFeeds(): Promise<ApiResonse<Feed[]>> {
-    return get(`${BASE_URL}/feed`);
+    return get(`${BASE_URL}/feed?sortMode=TRENDING`);
   }
 
   static async getFeedDetail(feedId: string): Promise<ApiResonse<Comment[]>> {

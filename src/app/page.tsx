@@ -8,7 +8,7 @@ export default async function FeedPage() {
   return (
     <div className="grid grid-cols-1 gap-4 py-4">
       {feeds
-        .filter((f) => f.inner.user)
+        .filter((f) => f.inner.user && f.inner.content)
         .map((feed, index) => (
           <Card key={index}>
             <User user={feed.inner.user} />
