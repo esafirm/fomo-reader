@@ -21,22 +21,18 @@ class DataFetcher {
   }
 
   static async getCompanyReview(): Promise<ApiResonse<CompanyReview[]>> {
-    return get(`${BASE_URL}/companyReview`, {
-      limit: '30',
-      page: '1',
-    });
+    return get(`${BASE_URL}/companyReview`);
   }
 
   static async getSalary(): Promise<ApiResonse<Salary[]>> {
     return get(`${BASE_URL}/salary`, {
-      limit: '30',
-      page: '1',
+      limit: '50',
     });
   }
 
   static async getSalaryJobTitles(): Promise<ApiResonse<Salary[]>> {
     return get(`${BASE_URL}/salary/jobTitles`, {
-      limit: '5',
+      limit: '50',
     });
   }
 
@@ -69,6 +65,9 @@ async function get(url: string, params?: Record<string, string>) {
   const res = await fetch(url, {
     headers: {
       Authorization: process.env.NEXT_PUBLIC_AUTH as string,
+    },
+    next: {
+      revalidate: 5,
     },
   });
 
