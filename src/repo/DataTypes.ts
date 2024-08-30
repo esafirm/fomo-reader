@@ -56,7 +56,7 @@ export type Channel = {
   userCount: number;
 };
 
-export type Comment = {
+export type FeedComment = {
   dislikedChildCommentIds: string[];
   likedChildCommentIds: string[];
   blockedUserIds: string[];
@@ -174,4 +174,40 @@ export type Company = {
     totalReviews: number;
   };
   type: 'COMPANY';
+};
+
+export type NewFeed = {
+  key: number;
+  channelId: null | string;
+  banned: boolean;
+  deleted: boolean;
+  voteFlag: number;
+  surveyQuestionIdToVoteFlag: Record<string, string>;
+  notificationEnabled: boolean;
+  bookmarkActivityId: null | string;
+  headerType: string;
+  bookmarked: boolean;
+  inner: {
+    channel: Channel;
+    promoted: boolean;
+    tax: string;
+    imageUrl: null | string;
+    pollOptions: unknown[];
+    channelId: null | string;
+    content: string;
+    title: string;
+    marketingConsented: boolean;
+    type: string;
+    edited: boolean;
+    numberOfLikes: number;
+    banned: boolean;
+    numberOfDislikes: number;
+    numberOfComments: number;
+    deleted: boolean;
+    activityId: number;
+    creationTime: string;
+    user: User;
+  };
+  liked: boolean;
+  disliked: boolean;
 };

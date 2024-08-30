@@ -2,6 +2,8 @@ import Card from '@/components/Card';
 import User from '@/components/User';
 import DataFetcher from '@/repo/DataFetcher';
 
+import { Title, Content } from '@/components/Text';
+
 export default async function FeedPage() {
   const feeds = (await DataFetcher.getFeeds()).data;
 
@@ -10,15 +12,15 @@ export default async function FeedPage() {
       {feeds
         .filter((f) => f.inner.user && f.inner.content)
         .map((feed, index) => (
-          <Card key={index}>
+          <Card key={index} href={`/feed/${feed.inner.activityId}`}>
             <User user={feed.inner.user} />
 
-            <div className="font-bold text-xl">{feed.inner.title}</div>
-            <div className="text-gray-600 m-t-4">{feed.inner.content}</div>
+            <Title>{feed.inner.title}</Title>
+            <Content>{feed.inner.content}</Content>
 
             <div className="mt-4">
               <div className="font-bold text-gray-600">Tax</div>
-              <div>{feed.inner.tax ?? 'User pelit'}</div>
+              <Content>{feed.inner.tax ?? 'User pelit'}</Content>
             </div>
           </Card>
         ))}

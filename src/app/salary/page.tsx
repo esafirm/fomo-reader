@@ -40,7 +40,9 @@ function AllowanceList({ allowances }: { allowances: string[] }) {
     return <p>N\A</p>;
   }
 
-  return allowances.map((allowance) => <p>{`· ${allowance}`}</p>);
+  return allowances.map((allowance, index) => (
+    <p key={index}>{`· ${allowance}`}</p>
+  ));
 }
 
 function SalaryInfo({

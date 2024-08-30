@@ -40,8 +40,9 @@ function NavBar() {
         FOMO Reader
       </span>
 
-      {NavMenus.map((menu) => (
+      {NavMenus.map((menu, index) => (
         <Link
+          key={index}
           className="rounded px-4 py-2 hover:bg-slate-300"
           href={menu.target}
         >

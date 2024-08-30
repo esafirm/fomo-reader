@@ -1,5 +1,5 @@
 import { ApiResonse } from './ApiResponse';
-import { CompanyReview, Feed, Salary } from './DataTypes';
+import { CompanyReview, Feed, FeedComment, Salary } from './DataTypes';
 
 const BASE_URL = 'https://fomo.azurewebsites.net';
 
@@ -8,8 +8,16 @@ class DataFetcher {
     return get(`${BASE_URL}/feed?sortMode=TRENDING`);
   }
 
-  static async getFeedDetail(feedId: string): Promise<ApiResonse<Comment[]>> {
+  static async getFeedComments(
+    feedId: string
+  ): Promise<ApiResonse<FeedComment[]>> {
     return get(`${BASE_URL}/activity/${feedId}/comments`);
+  }
+
+  static async getFeed(feedId: string): Promise<Feed> {
+    return post(`${BASE_URL}/activity`, {
+      activityId: feedId,
+    });
   }
 
   static async getCompanyReview(): Promise<ApiResonse<CompanyReview[]>> {
@@ -57,7 +65,7 @@ async function get(url: string, params?: Record<string, string>) {
     url += `?${queryString}`;
   }
 
-  onPreRequest(url);
+  onPreRequest('GET', url);
   const res = await fetch(url, {
     headers: {
       Authorization: process.env.NEXT_PUBLIC_AUTH as string,
@@ -65,15 +73,34 @@ async function get(url: string, params?: Record<string, string>) {
   });
 
   const json = await res.json();
-  onPostRequest(url, json);
+  onPostRequest('GET', url, json);
 
   return json;
 }
 
-function onPreRequest(url: string) {
-  console.log('==> GET ', url);
+async function post(url: string, params?: Record<string, string>) {
+  const payload = JSON.stringify(params);
+
+  onPreRequest('POST', url, payload);
+  const res = await fetch(url, {
+    headers: {
+      Authorization: process.env.NEXT_PUBLIC_AUTH as string,
+      'content-type': 'application/json',
+    },
+    referrer: 'https://fomo.id/',
+    body: payload,
+    method: 'POST',
+  });
+  const json = await res.json();
+  onPostRequest('POST', url, json);
+
+  return json;
 }
 
-function onPostRequest(url: string, json: any) {
-  console.log('<== GET ', url, json);
+function onPreRequest(method: string, url: string, payload: any = '') {
+  console.log(`==> ${method} `, url, payload);
+}
+
+function onPostRequest(method: string, url: string, json: any) {
+  console.log(`<== ${method} `, url, json);
 }
