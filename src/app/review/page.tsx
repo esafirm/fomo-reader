@@ -25,7 +25,7 @@ export default async function FeedPage() {
       {reviews
         .filter((r) => r.inner.user && r.inner.jobTitle)
         .map((review, index) => (
-          <Card key={index}>
+          <Card key={index} href={`/feed/${review.inner.activityId}`}>
             <User user={review.inner.user} />
 
             <p className="text-gray-600 text-sm">

@@ -64,7 +64,7 @@ async function get(url: string, params?: Record<string, string>) {
   onPreRequest('GET', url);
   const res = await fetch(url, {
     headers: {
-      Authorization: process.env.NEXT_PUBLIC_AUTH as string,
+      Authorization: process.env.AUTH_TOKEN as string,
     },
     next: {
       revalidate: 5,
@@ -83,7 +83,7 @@ async function post(url: string, params?: Record<string, string>) {
   onPreRequest('POST', url, payload);
   const res = await fetch(url, {
     headers: {
-      Authorization: process.env.NEXT_PUBLIC_AUTH as string,
+      Authorization: process.env.AUTH_TOKEN as string,
       'content-type': 'application/json',
     },
     referrer: 'https://fomo.id/',

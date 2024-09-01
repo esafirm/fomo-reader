@@ -1,36 +1,35 @@
 import Card from '@/components/Card';
 import User from '@/components/User';
-import DataFetcher from '@/repo/DataFetcher';
+
+import { getSalaries } from '../review/SalaryFetcher';
 
 export default async function FeedPage() {
-  const salaries = (await DataFetcher.getSalary()).data;
+  const salaries = await getSalaries();
 
   return (
     <div className="grid grid-cols-1 gap-4 py-4">
-      {salaries
-        .filter((f) => f.inner.user && f.inner.jobTitle)
-        .map((feed, index) => (
-          <Card key={index}>
-            <User user={feed.inner.user} />
+      {salaries.map((salary, index) => (
+        <Card key={index} href={`/feed/${salary.inner.activityId}`}>
+          <User user={salary.inner.user} />
 
-            <p className="font-bold text-xl mb-2">
-              {`${feed.inner.jobTitle.value} - ${feed.inner.yearsOfExperience} YOE`}
-            </p>
+          <p className="font-bold text-xl mb-2">
+            {`${salary.inner.jobTitle.value} - ${salary.inner.yearsOfExperience} YOE`}
+          </p>
 
-            <SalaryInfo
-              label="Base"
-              value={feed.inner.baseMonthlySalaryInRupiah}
-            />
-            <SalaryInfo label="Bonus" value={feed.inner.annualBonusInRupiah} />
-            <SalaryInfo
-              label="Equity"
-              value={feed.inner.annualMarketPriceEquityInRupiah}
-            />
+          <SalaryInfo
+            label="Base"
+            value={salary.inner.baseMonthlySalaryInRupiah}
+          />
+          <SalaryInfo label="Bonus" value={salary.inner.annualBonusInRupiah} />
+          <SalaryInfo
+            label="Equity"
+            value={salary.inner.annualMarketPriceEquityInRupiah}
+          />
 
-            <p className="font-bold text-lg pt-4 pb-2">Allowance</p>
-            <AllowanceList allowances={feed.inner.allowances} />
-          </Card>
-        ))}
+          <p className="font-bold text-lg pt-4 pb-2">Allowance</p>
+          <AllowanceList allowances={salary.inner.allowances} />
+        </Card>
+      ))}
     </div>
   );
 }
