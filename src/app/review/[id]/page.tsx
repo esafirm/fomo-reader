@@ -5,29 +5,41 @@ import DataFetcher from '@/repo/DataFetcher';
 import { Title, Content } from '@/components/Text';
 import type { FeedComment, InnerComment } from '@/repo/DataTypes';
 
-interface FeedDetailPageProps {
+interface ReviewDetailPageProps {
   params: {
-    feedid: string;
+    id: string;
   };
 }
 
-export default async function FeedDetailPage({ params }: FeedDetailPageProps) {
-  const feed = DataFetcher.getFeed(params.feedid);
-  const comments = DataFetcher.getActivityComments(params.feedid);
+export default async function ReviewDetailPage({
+  params,
+}: ReviewDetailPageProps) {
+  const review = DataFetcher.getCompanyReview(params.id);
+  const comments = DataFetcher.getActivityComments(params.id);
 
-  const feedData = await feed;
+  const reviewData = await review;
   const commentsData = (await comments).data;
 
   return (
-    <div>
-      <Card key={params.feedid}>
-        <User user={feedData.inner.user} />
-        <Title>{feedData.inner.title}</Title>
-        <Content>{feedData.inner.content}</Content>
+    <div className="pt-4">
+      <Card key={params.id}>
+        <User user={reviewData.inner.user} />
+        <Title>{reviewData.inner.title}</Title>
+        <Content>{reviewData.inner.content}</Content>
       </Card>
 
+      <CommentSection comments={commentsData} />
+    </div>
+  );
+}
+
+function CommentSection({ comments }: { comments: FeedComment[] }) {
+  if (comments.length === 0) return;
+
+  return (
+    <div>
       <Title className="py-4">Comments</Title>
-      {commentsData.map((comment, index) => (
+      {comments.map((comment, index) => (
         <Comment key={index} comment={comment} />
       ))}
     </div>

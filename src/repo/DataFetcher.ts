@@ -8,7 +8,7 @@ class DataFetcher {
     return get(`${BASE_URL}/feed?sortMode=TRENDING`);
   }
 
-  static async getFeedComments(
+  static async getActivityComments(
     feedId: string
   ): Promise<ApiResonse<FeedComment[]>> {
     return get(`${BASE_URL}/activity/${feedId}/comments`);
@@ -20,8 +20,14 @@ class DataFetcher {
     });
   }
 
-  static async getCompanyReview(): Promise<ApiResonse<CompanyReview[]>> {
+  static async getCompanyReviews(): Promise<ApiResonse<CompanyReview[]>> {
     return get(`${BASE_URL}/companyReview`);
+  }
+
+  static async getCompanyReview(activityId: string): Promise<CompanyReview> {
+    return post(`${BASE_URL}/activity`, {
+      activityId: activityId,
+    });
   }
 
   static async getSalary(): Promise<ApiResonse<Salary[]>> {

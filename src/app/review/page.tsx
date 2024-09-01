@@ -2,6 +2,8 @@ import Card from '@/components/Card';
 import DataFetcher from '@/repo/DataFetcher';
 import User from '@/components/User';
 import Rating from '@/components/Rating';
+import { IconBxCommentDetail } from '@/components/Icons';
+import ActivityCounter from '@/components/ActivityCounter';
 
 function PointsSection({ items, label }: { items: string[]; label: string }) {
   return (
@@ -17,15 +19,15 @@ function PointsSection({ items, label }: { items: string[]; label: string }) {
   );
 }
 
-export default async function FeedPage() {
-  const reviews = (await DataFetcher.getCompanyReview()).data;
+export default async function ReviewsPage() {
+  const reviews = (await DataFetcher.getCompanyReviews()).data;
 
   return (
     <div className="grid grid-cols-1 gap-4 py-4">
       {reviews
         .filter((r) => r.inner.user && r.inner.jobTitle)
         .map((review, index) => (
-          <Card key={index} href={`/feed/${review.inner.activityId}`}>
+          <Card key={index} href={`/review/${review.inner.activityId}`}>
             <User user={review.inner.user} />
 
             <p className="text-gray-600 text-sm">
@@ -40,6 +42,12 @@ export default async function FeedPage() {
             <PointsSection label="Pros" items={review.inner.pros} />
 
             <PointsSection label="Cons" items={review.inner.cons} />
+
+            <ActivityCounter
+              like={review.inner.numberOfLikes}
+              dislake={review.inner.numberOfDislikes}
+              comment={review.inner.numberOfComments}
+            />
           </Card>
         ))}
     </div>

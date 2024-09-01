@@ -15,6 +15,7 @@ export async function getSalaries(): Promise<Salary[]> {
         equity: s.inner.annualMarketPriceEquityInRupiah,
         companyName: s.inner.user.companyName,
         yoe: s.inner.yearsOfExperience,
+        jobTitle: s.inner.jobTitle.value,
       };
     })
   );
@@ -29,6 +30,7 @@ type SalaryData = {
   bonus: number | null;
   equity: number | null;
   yoe: number | null;
+  jobTitle: string;
 };
 
 async function upsertSalaryData(salaries: SalaryData[]) {
@@ -38,12 +40,12 @@ async function upsertSalaryData(salaries: SalaryData[]) {
       (s) =>
         `(${s.id}, ${s.base ?? 0}, ${s.bonus ?? 0}, ${s.equity ?? 0}, '${
           s.companyName
-        }', ${s.yoe ?? 0})`
+        }', ${s.yoe ?? 0}, '${s.jobTitle ?? ''}')`
     )
     .join(', ');
 
   const query = `
-	INSERT INTO salary (id, base_salary, bonus, equity, company_name, years_of_experience)
+	INSERT INTO salary (id, base_salary, bonus, equity, company_name, years_of_experience, job_title)
   SELECT * FROM (
     VALUES ${values}
   ) as new_salary  
@@ -53,7 +55,8 @@ async function upsertSalaryData(salaries: SalaryData[]) {
     bonus = EXCLUDED.bonus,
     equity = EXCLUDED.equity,
     company_name = EXCLUDED.company_name,
-    years_of_experience = EXCLUDED.years_of_experience;
+    years_of_experience = EXCLUDED.years_of_experience,
+		job_title = EXCLUDED.job_title;
 	`;
 
   executeSql(query);

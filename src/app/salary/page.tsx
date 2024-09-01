@@ -1,7 +1,7 @@
 import Card from '@/components/Card';
 import User from '@/components/User';
 
-import { getSalaries } from '../review/SalaryFetcher';
+import { getSalaries } from './SalaryFetcher';
 
 export default async function FeedPage() {
   const salaries = await getSalaries();
