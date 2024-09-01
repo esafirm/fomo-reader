@@ -3,6 +3,7 @@ import User from '@/components/User';
 import DataFetcher from '@/repo/DataFetcher';
 
 import { Title, Content } from '@/components/Text';
+import ActivityCounter from '@/components/ActivityCounter';
 
 export default async function FeedPage() {
   const feeds = (await DataFetcher.getFeeds()).data;
@@ -22,6 +23,12 @@ export default async function FeedPage() {
               <div className="font-bold text-gray-600">Tax</div>
               <Content>{feed.inner.tax ?? 'User pelit'}</Content>
             </div>
+
+            <ActivityCounter
+              like={feed.inner.numberOfLikes}
+              dislake={feed.inner.numberOfDislikes}
+              comment={feed.inner.numberOfComments}
+            />
           </Card>
         ))}
     </div>
