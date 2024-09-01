@@ -19,5 +19,5 @@ export function SubTitle({
 }
 
 export function Content({ children }: { children: string }) {
-  return <p className="text-gray-600 m-t-4">{children}</p>;
+  return <p className="text-gray-600 m-t-4 overflow-x-auto">{children}</p>;
 }

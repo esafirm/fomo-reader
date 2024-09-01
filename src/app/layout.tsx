@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="flex flex-col px-32">
+        <div className="flex flex-col px-4 lg:px-32">
           <NavBar />
           {children}
         </div>
@@ -35,20 +35,22 @@ const NavMenus = [
 
 function NavBar() {
   return (
-    <div className="p-4 space-x-2 mt-4">
-      <span className="text-xl bg-slate-100 rounded px-4 py-2 tracking-tighter font-bold">
+    <div className="flex flex-col lg:flex-row mt-4 lg:space-x-2">
+      <span className="sm:text-lg text-xl bg-slate-100 rounded px-4 py-2 tracking-tighter font-bold">
         FOMO Reader
       </span>
 
-      {NavMenus.map((menu, index) => (
-        <Link
-          key={index}
-          className="rounded px-4 py-2 hover:bg-slate-300"
-          href={menu.target}
-        >
-          {menu.label}
-        </Link>
-      ))}
+      <section className="py-4 space-x-2">
+        {NavMenus.map((menu, index) => (
+          <Link
+            key={index}
+            className="rounded px-4 py-2 hover:bg-slate-300"
+            href={menu.target}
+          >
+            {menu.label}
+          </Link>
+        ))}
+      </section>
     </div>
   );
 }
