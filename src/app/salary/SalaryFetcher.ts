@@ -3,7 +3,7 @@ import DataFetcher from '@/repo/DataFetcher';
 import { Salary } from '@/repo/DataTypes';
 
 export async function getSalaries(): Promise<Salary[]> {
-  const res = await DataFetcher.getSalary();
+  const res = await DataFetcher.getSalaries();
   const filtered = res.data.filter((s) => s.inner.user && s.inner.jobTitle);
 
   await upsertSalaryData(

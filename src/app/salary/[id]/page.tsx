@@ -4,28 +4,47 @@ import DataFetcher from '@/repo/DataFetcher';
 
 import { Title, Content } from '@/components/Text';
 import type { FeedComment, InnerComment } from '@/repo/DataTypes';
+import { AllowanceList, SalaryInfo } from '../SalaryComponents';
 
-interface ReviewDetailPageProps {
+interface SalaryDetailPageProps {
   params: {
     id: string;
   };
 }
 
-export default async function ReviewDetailPage({
+export default async function SalaryDetailPage({
   params,
-}: ReviewDetailPageProps) {
-  const review = DataFetcher.getCompanyReview(params.id);
+}: SalaryDetailPageProps) {
+  const salary = DataFetcher.getSalary(params.id);
   const comments = DataFetcher.getActivityComments(params.id);
 
-  const reviewData = await review;
+  const salaryData = await salary;
   const commentsData = (await comments).data;
 
   return (
     <div className="pt-4">
       <Card key={params.id}>
-        <User user={reviewData.inner.user} />
-        <Title>{reviewData.inner.title}</Title>
-        <Content>{reviewData.inner.content}</Content>
+        <User user={salaryData.inner.user} />
+
+        <p className="font-bold text-xl mb-2">
+          {`${salaryData.inner.jobTitle.value} - ${salaryData.inner.yearsOfExperience} YOE`}
+        </p>
+
+        <SalaryInfo
+          label="Base"
+          value={salaryData.inner.baseMonthlySalaryInRupiah}
+        />
+        <SalaryInfo
+          label="Bonus"
+          value={salaryData.inner.annualBonusInRupiah}
+        />
+        <SalaryInfo
+          label="Equity"
+          value={salaryData.inner.annualMarketPriceEquityInRupiah}
+        />
+
+        <p className="font-bold text-lg pt-4 pb-2">Allowance</p>
+        <AllowanceList allowances={salaryData.inner.allowances} />
       </Card>
 
       <CommentSection comments={commentsData} />
