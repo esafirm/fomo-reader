@@ -4,6 +4,7 @@ import ActivityCounter from '@/components/ActivityCounter';
 
 import { getSalaries } from './SalaryFetcher';
 import { AllowanceList, SalaryInfo } from './SalaryComponents';
+import { SubTitle } from '@/components/Text';
 
 export default async function FeedPage() {
   const salaries = await getSalaries();
@@ -28,8 +29,11 @@ export default async function FeedPage() {
             value={salary.inner.annualMarketPriceEquityInRupiah}
           />
 
-          <p className="font-bold text-lg pt-4 pb-2">Allowance</p>
+          <SubTitle className='mt-4'>Allowances</SubTitle>
           <AllowanceList allowances={salary.inner.allowances} />
+
+          <SubTitle className='mt-4'>Role Level</SubTitle>
+          <p>{salary.inner.roleLevel?.value ?? 'N/A'}</p>
 
           <ActivityCounter
             like={salary.inner.numberOfLikes}

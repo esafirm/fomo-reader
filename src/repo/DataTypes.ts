@@ -141,7 +141,9 @@ export type Salary = {
   headerType: string;
   notificationEnabled: boolean;
   inner: {
-    roleLevel: null | string;
+    roleLevel: {
+      value: string;
+    };
     yearsOfExperience: number;
     baseMonthlySalaryInRupiah: number;
     annualBonusInRupiah: null | number;
