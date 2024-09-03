@@ -2,22 +2,8 @@ import Card from '@/components/Card';
 import DataFetcher from '@/repo/DataFetcher';
 import User from '@/components/User';
 import Rating from '@/components/Rating';
-import { IconBxCommentDetail } from '@/components/Icons';
 import ActivityCounter from '@/components/ActivityCounter';
-
-function PointsSection({ items, label }: { items: string[]; label: string }) {
-  return (
-    <div className="pt-4">
-      <span className="font-medium">{label}</span>
-
-      {(items || []).map((item, index) => (
-        <div key={index} className="text-gray-600">
-          · {item}
-        </div>
-      ))}
-    </div>
-  );
-}
+import { PointsSection } from './ReviewComponents';
 
 export default async function ReviewsPage() {
   const reviews = (await DataFetcher.getCompanyReviews()).data;
