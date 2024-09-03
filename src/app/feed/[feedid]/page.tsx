@@ -2,8 +2,9 @@ import Card from '@/components/Card';
 import User from '@/components/User';
 import DataFetcher from '@/repo/DataFetcher';
 
-import { Title, Content } from '@/components/Text';
+import { Title, Content, SubTitle } from '@/components/Text';
 import type { FeedComment, InnerComment } from '@/repo/DataTypes';
+import ActivityCounter from '@/components/ActivityCounter';
 
 interface FeedDetailPageProps {
   params: {
@@ -19,11 +20,20 @@ export default async function FeedDetailPage({ params }: FeedDetailPageProps) {
   const commentsData = (await comments).data;
 
   return (
-    <div>
+    <div className="pt-4">
       <Card key={params.feedid}>
         <User user={feedData.inner.user} />
         <Title>{feedData.inner.title}</Title>
         <Content>{feedData.inner.content}</Content>
+
+        <SubTitle className="pt-4">Tax</SubTitle>
+        <Content>{feedData.inner.tax ?? 'User Pelit'}</Content>
+
+        <ActivityCounter
+          like={feedData.inner.numberOfLikes}
+          dislike={feedData.inner.numberOfDislikes}
+          comment={feedData.inner.numberOfComments}
+        />
       </Card>
 
       <Title className="py-4">Comments</Title>

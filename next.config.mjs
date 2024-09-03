@@ -7,6 +7,11 @@ const nextConfig = {
         protocol: 'http',
         hostname: 'fomo.blob.core.windows.net',
       },
+      {
+        // https://fomo.blob.core.windows.net/company-images/bankmega.com.png
+        protocol: 'https',
+        hostname: 'fomo.blob.core.windows.net',
+      },
     ],
   },
 };

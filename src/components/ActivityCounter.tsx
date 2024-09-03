@@ -2,7 +2,7 @@ import { IconBxCommentDetail, IconDislike, IconLike } from './Icons';
 
 export type ActivityCounterProps = {
   like: number | null;
-  dislake: number | null;
+  dislike: number | null;
   comment: number | null;
 };
 
@@ -21,7 +21,7 @@ export default function ActivityCounter(props: ActivityCounterProps) {
 
       <IconWithCaption>
         <IconDislike />
-        <p>{props.dislake}</p>
+        <p>{props.dislike}</p>
       </IconWithCaption>
     </div>
   );

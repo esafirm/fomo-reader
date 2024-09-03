@@ -2,7 +2,7 @@ import Card from '@/components/Card';
 import User from '@/components/User';
 import DataFetcher from '@/repo/DataFetcher';
 
-import { Title, Content } from '@/components/Text';
+import { Title, Content, SubTitle } from '@/components/Text';
 import ActivityCounter from '@/components/ActivityCounter';
 
 export default async function FeedPage() {
@@ -19,14 +19,12 @@ export default async function FeedPage() {
             <Title>{feed.inner.title}</Title>
             <Content>{feed.inner.content}</Content>
 
-            <div className="mt-4">
-              <div className="font-bold text-gray-600">Tax</div>
-              <Content>{feed.inner.tax ?? 'User pelit'}</Content>
-            </div>
+            <SubTitle className="pt-4">Tax</SubTitle>
+            <Content>{feed.inner.tax ?? 'User pelit'}</Content>
 
             <ActivityCounter
               like={feed.inner.numberOfLikes}
-              dislake={feed.inner.numberOfDislikes}
+              dislike={feed.inner.numberOfDislikes}
               comment={feed.inner.numberOfComments}
             />
           </Card>

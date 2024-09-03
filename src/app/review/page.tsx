@@ -45,7 +45,7 @@ export default async function ReviewsPage() {
 
             <ActivityCounter
               like={review.inner.numberOfLikes}
-              dislake={review.inner.numberOfDislikes}
+              dislike={review.inner.numberOfDislikes}
               comment={review.inner.numberOfComments}
             />
           </Card>

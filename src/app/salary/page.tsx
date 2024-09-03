@@ -37,7 +37,7 @@ export default async function FeedPage() {
 
           <ActivityCounter
             like={salary.inner.numberOfLikes}
-            dislake={salary.inner.numberOfDislikes}
+            dislike={salary.inner.numberOfDislikes}
             comment={salary.inner.numberOfComments}
           />
         </Card>
