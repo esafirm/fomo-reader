@@ -32,7 +32,7 @@ export default function PagingIndicator({
       </Link>
 
       <span className="text-lg font-semibold">
-        Page {currentPage} of {totalPages}
+        {currentPage} of {totalPages}
       </span>
 
       <Link
