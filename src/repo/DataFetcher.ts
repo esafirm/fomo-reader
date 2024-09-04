@@ -30,9 +30,10 @@ class DataFetcher {
     });
   }
 
-  static async getSalaries(): Promise<ApiResonse<Salary[]>> {
+  static async getSalaries(page: number = 1): Promise<ApiResonse<Salary[]>> {
     return get(`${BASE_URL}/salary`, {
       limit: '50',
+      page: page.toString(),
     });
   }
 

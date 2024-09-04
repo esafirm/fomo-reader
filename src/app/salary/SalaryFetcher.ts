@@ -2,8 +2,8 @@ import { executeSql } from '@/repo/DatabaseClient';
 import DataFetcher from '@/repo/DataFetcher';
 import { Salary } from '@/repo/DataTypes';
 
-export async function getSalaries(): Promise<Salary[]> {
-  const res = await DataFetcher.getSalaries();
+export async function getSalaries(page: number): Promise<Salary[]> {
+  const res = await DataFetcher.getSalaries(page);
   const filtered = res.data.filter((s) => s.inner.user && s.inner.jobTitle);
 
   await upsertSalaryData(

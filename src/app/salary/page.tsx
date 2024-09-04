@@ -5,9 +5,17 @@ import ActivityCounter from '@/components/ActivityCounter';
 import { getSalaries } from './SalaryFetcher';
 import { AllowanceList, SalaryInfo } from './SalaryComponents';
 import { SubTitle } from '@/components/Text';
+import PagingIndicator from '@/components/PagingIndicator';
 
-export default async function FeedPage() {
-  const salaries = await getSalaries();
+type NextSearchParams = { [key: string]: string | string[] | undefined };
+
+type SalaryPageProps = {
+  searchParams: NextSearchParams;
+};
+
+export default async function FeedPage(props: SalaryPageProps) {
+  const page = safelyGetPage(props.searchParams);
+  const salaries = await getSalaries(page);
 
   return (
     <div className="grid grid-cols-1 gap-4 py-4">
@@ -29,10 +37,10 @@ export default async function FeedPage() {
             value={salary.inner.annualMarketPriceEquityInRupiah}
           />
 
-          <SubTitle className='mt-4'>Allowances</SubTitle>
+          <SubTitle className="mt-4">Allowances</SubTitle>
           <AllowanceList allowances={salary.inner.allowances} />
 
-          <SubTitle className='mt-4'>Role Level</SubTitle>
+          <SubTitle className="mt-4">Role Level</SubTitle>
           <p>{salary.inner.roleLevel?.value ?? 'N/A'}</p>
 
           <ActivityCounter
@@ -42,6 +50,20 @@ export default async function FeedPage() {
           />
         </Card>
       ))}
+
+      <PagingIndicator
+        totalPages={100}
+        currentPage={page}
+        basePath="/salary/"
+      />
     </div>
   );
+}
+
+function safelyGetPage(searchParams: NextSearchParams): number {
+  if (!searchParams) return 1;
+  const page = searchParams['page'];
+
+  if (Array.isArray(page)) return 1;
+  return page ? parseInt(page, 10) : 1;
 }
