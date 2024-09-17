@@ -20,13 +20,20 @@ export function SubTitle({
 
 export function Content({ children }: { children: string }) {
   return (
-    <p className="text-gray-600 m-t-4 overflow-x-auto">
-      {children.split('*').map((text, index) => {
-        if (index % 2 === 1) {
-          return <strong className="text-blue-500" key={index}>{text}</strong>;
-        } else {
-          return text;
+    <p className="text-gray-600 m-t-4 overflow-x-auto whitespace-pre-wrap">
+      {children.split(/(\*.*?\*)/).map((segment, index) => {
+        if (segment.startsWith('*') && segment.endsWith('*')) {
+          const text = segment.slice(1, -1);
+          if (text.startsWith('@')) {
+            return (
+              <strong className="text-blue-500" key={index}>
+                {text}
+              </strong>
+            );
+          }
+          return `*${text}*`;
         }
+        return segment;
       })}
     </p>
   );

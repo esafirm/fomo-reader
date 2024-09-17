@@ -19,6 +19,9 @@ export default async function FeedDetailPage({ params }: FeedDetailPageProps) {
   const feedData = await feed;
   const commentsData = (await comments).data;
 
+
+  console.log('Inner content', feedData.inner.content);
+
   return (
     <div className="pt-4">
       <Card key={params.feedid}>
