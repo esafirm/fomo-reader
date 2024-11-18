@@ -6,9 +6,28 @@ import { Title, Content, SubTitle } from '@/components/Text';
 import type { FeedComment, InnerComment } from '@/repo/DataTypes';
 import ActivityCounter from '@/components/ActivityCounter';
 
+import type { Metadata, ResolvingMetadata } from 'next';
+
 interface FeedDetailPageProps {
   params: {
     feedid: string;
+  };
+}
+
+export async function generateMetadata(
+  { params }: FeedDetailPageProps,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const feed = await DataFetcher.getFeed(params.feedid);
+
+  const wrappedContent =
+    feed.inner.content.length > 100
+      ? feed.inner.content.slice(0, 100) + '…'
+      : feed.inner.content;
+
+  return {
+    title: `FOMO Reader - ${feed.inner.title}`,
+    description: wrappedContent,
   };
 }
 
@@ -18,9 +37,6 @@ export default async function FeedDetailPage({ params }: FeedDetailPageProps) {
 
   const feedData = await feed;
   const commentsData = (await comments).data;
-
-
-  console.log('Inner content', feedData.inner.content);
 
   return (
     <div className="pt-4">
