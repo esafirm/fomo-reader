@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import Link from 'next/link';
 import NavBar from '@/components/NavBar';
+import { trace } from 'console';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -15,6 +16,7 @@ const NavMenus = [
   { target: '/feed', label: 'Feed' },
   { target: '/review', label: 'Review' },
   { target: '/salary', label: 'Salary' },
+  { target: '/company', label: 'Company' },
 ];
 
 export default function RootLayout({

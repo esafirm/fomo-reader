@@ -1,5 +1,12 @@
 import { ApiResonse } from './ApiResponse';
-import { Company, CompanyReview, Feed, FeedComment, Salary } from './DataTypes';
+import {
+  Company,
+  CompanyReview,
+  CompanyWrapped,
+  Feed,
+  FeedComment,
+  Salary,
+} from './DataTypes';
 
 const BASE_URL = 'https://fomo.azurewebsites.net';
 
@@ -66,6 +73,12 @@ class DataFetcher {
     return get(`${BASE_URL}/company/reviewed`, {
       limit: '30',
       page: page.toString(),
+    });
+  }
+
+  static async searchCompanies(query: string): Promise<ApiResonse<CompanyWrapped[]>> {
+    return get(`${BASE_URL}/company/v2`, {
+      search: query,
     });
   }
 }

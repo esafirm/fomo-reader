@@ -166,15 +166,8 @@ export type Salary = {
   disliked: boolean;
 };
 
-export type CompanyInSalary = {
-  data: {
-    name: string;
-    id: number;
-    imageUrl: string;
-    ratings: number;
-    totalSalaries: number;
-    totalReviews: number;
-  };
+export type CompanyWrapped = {
+  data: Company;
   type: 'COMPANY';
 };
 
