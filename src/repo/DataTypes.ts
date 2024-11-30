@@ -166,7 +166,7 @@ export type Salary = {
   disliked: boolean;
 };
 
-export type Company = {
+export type CompanyInSalary = {
   data: {
     name: string;
     id: number;
@@ -212,4 +212,13 @@ export type NewFeed = {
   };
   liked: boolean;
   disliked: boolean;
+};
+
+export type Company = {
+  name: string;
+  id: number;
+  imageUrl: string;
+  ratings: number;
+  totalSalaries: number;
+  totalReviews: number;
 };

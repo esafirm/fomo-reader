@@ -1,5 +1,5 @@
 import { ApiResonse } from './ApiResponse';
-import { CompanyReview, Feed, FeedComment, Salary } from './DataTypes';
+import { Company, CompanyReview, Feed, FeedComment, Salary } from './DataTypes';
 
 const BASE_URL = 'https://fomo.azurewebsites.net';
 
@@ -56,9 +56,16 @@ class DataFetcher {
     });
   }
 
-  static async getCompany(companyName: string = '') {
+  static async getSalaryForCompany(companyName: string = '') {
     return get(`${BASE_URL}/salary/company/v2`, {
       search: companyName,
+    });
+  }
+
+  static async getCompanies(page: number = 1): Promise<Company[]> {
+    return get(`${BASE_URL}/company/reviewed`, {
+      limit: '30',
+      page: page.toString(),
     });
   }
 }
