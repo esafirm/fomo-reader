@@ -29,7 +29,7 @@ export async function generateMetadata(
       : titleAndContent;
 
   return {
-    title: `FOMO Reader - Review for ${reviewData.inner.jobTitle.value}`,
+    title: `FOMO Reader - Review for ${reviewData.inner.user.companyName}`,
     description: wrappedContent,
   };
 }
