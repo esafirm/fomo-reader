@@ -29,7 +29,7 @@ export default function SearchCompany() {
       <div className="relative w-full">
         <input
           type="text"
-          className="w-full p-2 border border-gray-300 rounded-md text-lg pr-10"
+          className="w-full p-2 border border-gray-300 rounded-md text-lg pr-10 px-4"
           placeholder="Search company here…"
           onChange={(e) => handleSearch(e.target.value)}
         />

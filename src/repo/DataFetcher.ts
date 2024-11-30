@@ -76,9 +76,20 @@ class DataFetcher {
     });
   }
 
-  static async searchCompanies(query: string): Promise<ApiResonse<CompanyWrapped[]>> {
+  static async searchCompanies(
+    query: string
+  ): Promise<ApiResonse<CompanyWrapped[]>> {
     return get(`${BASE_URL}/company/v2`, {
       search: query,
+    });
+  }
+
+  static async getSoftwareEngineerSalariesInCompany(
+    companyId: number
+  ): Promise<ApiResonse<Salary[]>> {
+    return get(`${BASE_URL}/salary`, {
+      jobTitleId: '1',
+      companyId: companyId.toString(),
     });
   }
 }

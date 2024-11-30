@@ -1,25 +1,17 @@
 import Card from '@/components/Card';
-import DataFetcher from '@/repo/DataFetcher';
 import Rating from '@/components/Rating';
+import DataFetcher from '@/repo/DataFetcher';
+import { NextSearchParams } from '@/repo/ExternalParams';
 import { CompanyAvatar, CompanyOtherStats } from './CompanyComponents';
 import SaerchCompany from './SearchCompany';
-import { Company } from '@/repo/DataTypes';
 
-export default async function ReviewsPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
-  const actualSearch = ((await searchParams).search as string) || '';
-  var companies: Company[] = [];
+type CompanyPageProps = {
+  searchParams: NextSearchParams;
+};
 
-  if (actualSearch) {
-    companies = await DataFetcher.searchCompanies(actualSearch)
-      .then((res) => res.data)
-      .then((data) => data.map((company) => company.data));
-  } else {
-    companies = await DataFetcher.getCompanies();
-  }
+export default async function ReviewsPage(props: CompanyPageProps) {
+  const searchTerm = safelyGetSearch(props.searchParams);
+  const companies = await fetchCompanies(searchTerm);
 
   return (
     <div className="w-full">
@@ -44,4 +36,22 @@ export default async function ReviewsPage({
       </div>
     </div>
   );
+}
+
+async function fetchCompanies(searchTerm: string) {
+  if (searchTerm) {
+    return await DataFetcher.searchCompanies(searchTerm)
+      .then((res) => res.data)
+      .then((data) => data.map((company) => company.data));
+  } else {
+    return await DataFetcher.getCompanies();
+  }
+}
+
+function safelyGetSearch(searchParams: NextSearchParams): string {
+  if (!searchParams) return '';
+  const searchTerm = searchParams['search'];
+
+  if (Array.isArray(searchTerm)) return '';
+  return searchTerm ?? '';
 }
