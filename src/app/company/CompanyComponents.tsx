@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { Company } from '@/repo/DataTypes';
+import Link from 'next/link';
 
 type CompanyProps = {
   company: Company;
@@ -34,10 +35,14 @@ export function CompanyOtherStats(props: CompanyProps) {
         <p>Gaji</p>
       </div>
 
-      <div className="flex flex-row space-x-1">
+      <Link
+        href={`/company/review/${props.company.id}`}
+        aria-label="Go to Company Feeds"
+        className="flex flex-row space-x-1 rounded-md hover:bg-slate-200 hover:px-2"
+      >
         <p>{props.company.totalReviews}</p>
         <p>Reviews</p>
-      </div>
+      </Link>
     </div>
   );
 }

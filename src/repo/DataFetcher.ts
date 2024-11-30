@@ -37,6 +37,16 @@ class DataFetcher {
     });
   }
 
+  static async getCompanyReviewForCompany(
+    companyId: string
+  ): Promise<ApiResonse<CompanyReview[]>> {
+    return get(`${BASE_URL}/companyReview`, {
+      limit: '30',
+      page: '1',
+      companyId: companyId,
+    });
+  }
+
   static async getSalaries(page: number = 1): Promise<ApiResonse<Salary[]>> {
     return get(`${BASE_URL}/salary`, {
       limit: '50',

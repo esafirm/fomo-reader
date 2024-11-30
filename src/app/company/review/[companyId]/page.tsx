@@ -1,12 +1,20 @@
-import Card from '@/components/Card';
-import DataFetcher from '@/repo/DataFetcher';
-import User from '@/components/User';
-import Rating from '@/components/Rating';
 import ActivityCounter from '@/components/ActivityCounter';
+import Card from '@/components/Card';
 import { PointsSection } from '@/components/PointsSection';
+import Rating from '@/components/Rating';
+import User from '@/components/User';
+import DataFetcher from '@/repo/DataFetcher';
 
-export default async function ReviewsPage() {
-  const reviews = (await DataFetcher.getCompanyReviews()).data;
+type CompanyReviewProps = {
+  params: {
+    companyId: string;
+  };
+};
+
+export default async function CompanyReview(props: CompanyReviewProps) {
+  const reviews = (
+    await DataFetcher.getCompanyReviewForCompany(props.params.companyId)
+  ).data;
 
   return (
     <div className="grid grid-cols-1 gap-4 py-4">
