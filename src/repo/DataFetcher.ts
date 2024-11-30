@@ -1,5 +1,12 @@
 import { ApiResonse } from './ApiResponse';
-import { CompanyReview, Feed, FeedComment, Salary } from './DataTypes';
+import {
+  Company,
+  CompanyReview,
+  CompanyWrapped,
+  Feed,
+  FeedComment,
+  Salary,
+} from './DataTypes';
 
 const BASE_URL = 'https://fomo.azurewebsites.net';
 
@@ -30,6 +37,16 @@ class DataFetcher {
     });
   }
 
+  static async getCompanyReviewForCompany(
+    companyId: string
+  ): Promise<ApiResonse<CompanyReview[]>> {
+    return get(`${BASE_URL}/companyReview`, {
+      limit: '30',
+      page: '1',
+      companyId: companyId,
+    });
+  }
+
   static async getSalaries(page: number = 1): Promise<ApiResonse<Salary[]>> {
     return get(`${BASE_URL}/salary`, {
       limit: '50',
@@ -56,9 +73,33 @@ class DataFetcher {
     });
   }
 
-  static async getCompany(companyName: string = '') {
+  static async getSalaryForCompany(companyName: string = '') {
     return get(`${BASE_URL}/salary/company/v2`, {
       search: companyName,
+    });
+  }
+
+  static async getCompanies(page: number = 1): Promise<Company[]> {
+    return get(`${BASE_URL}/company/reviewed`, {
+      limit: '30',
+      page: page.toString(),
+    });
+  }
+
+  static async searchCompanies(
+    query: string
+  ): Promise<ApiResonse<CompanyWrapped[]>> {
+    return get(`${BASE_URL}/company/v2`, {
+      search: query,
+    });
+  }
+
+  static async getSoftwareEngineerSalariesInCompany(
+    companyId: number
+  ): Promise<ApiResonse<Salary[]>> {
+    return get(`${BASE_URL}/salary`, {
+      jobTitleId: '1',
+      companyId: companyId.toString(),
     });
   }
 }

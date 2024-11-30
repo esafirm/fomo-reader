@@ -166,15 +166,8 @@ export type Salary = {
   disliked: boolean;
 };
 
-export type Company = {
-  data: {
-    name: string;
-    id: number;
-    imageUrl: string;
-    ratings: number;
-    totalSalaries: number;
-    totalReviews: number;
-  };
+export type CompanyWrapped = {
+  data: Company;
   type: 'COMPANY';
 };
 
@@ -212,4 +205,13 @@ export type NewFeed = {
   };
   liked: boolean;
   disliked: boolean;
+};
+
+export type Company = {
+  name: string;
+  id: number;
+  imageUrl: string;
+  ratings: number;
+  totalSalaries: number;
+  totalReviews: number;
 };

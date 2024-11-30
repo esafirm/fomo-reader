@@ -16,10 +16,13 @@ export default function Rating(props: RatingProps) {
     }
   }
 
+  // Make the rating have two decimal points max
+  const formatted = props.rating.toFixed(1);
+
   return (
     <div className="flex">
       <div>{stars}</div>
-      <div className="ml-2">{`${props.rating}/${maxRating}`}</div>
+      <div className="ml-2">{`${formatted}/${maxRating}`}</div>
     </div>
   );
 }

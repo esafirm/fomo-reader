@@ -6,11 +6,34 @@ import { Title, Content } from '@/components/Text';
 import type { FeedComment, InnerComment } from '@/repo/DataTypes';
 import Rating from '@/components/Rating';
 import ActivityCounter from '@/components/ActivityCounter';
-import { PointsSection } from '../ReviewComponents';
+import { PointsSection } from '@/components/PointsSection';
+import { Metadata, ResolvingMetadata } from 'next';
 
 interface ReviewDetailPageProps {
   params: {
     id: string;
+  };
+}
+
+export async function generateMetadata(
+  { params }: ReviewDetailPageProps,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const review = DataFetcher.getCompanyReview(params.id);
+  const reviewData = await review;
+
+  const joinedPropsAndCons = `
+    Cons:
+    ${reviewData.inner.cons.join('\n')}
+    Pros:
+    ${reviewData.inner.pros.join('\n')}
+  `;
+
+  const wrappedContent = joinedPropsAndCons.substring(0, 100);
+
+  return {
+    title: `FOMO Reader - Review for ${reviewData.inner.jobTitle.value}`,
+    description: wrappedContent,
   };
 }
 

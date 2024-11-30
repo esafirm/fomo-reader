@@ -6,8 +6,7 @@ import { getSalaries } from './SalaryFetcher';
 import { AllowanceList, SalaryInfo } from './SalaryComponents';
 import { SubTitle } from '@/components/Text';
 import PagingIndicator from '@/components/PagingIndicator';
-
-type NextSearchParams = { [key: string]: string | string[] | undefined };
+import { NextSearchParams } from '@/repo/ExternalParams';
 
 type SalaryPageProps = {
   searchParams: NextSearchParams;
