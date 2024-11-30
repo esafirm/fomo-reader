@@ -1,5 +1,6 @@
 import ActivityCounter from '@/components/ActivityCounter';
 import Card from '@/components/Card';
+import CreationTime from '@/components/CreationTime';
 import { PointsSection } from '@/components/PointsSection';
 import Rating from '@/components/Rating';
 import User from '@/components/User';
@@ -42,6 +43,8 @@ export default async function CompanyReview(props: CompanyReviewProps) {
               dislike={review.inner.numberOfDislikes}
               comment={review.inner.numberOfComments}
             />
+
+            <CreationTime time={review.inner.creationTime} />
           </Card>
         ))}
     </div>

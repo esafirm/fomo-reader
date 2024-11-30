@@ -21,8 +21,8 @@ export default function UserSection({ user }: { user: User }) {
         <CircleWrapper className="p-1 text-lg">😭</CircleWrapper>
       )}
       <div>
-        <div className="font-bold text-gray-600">{user.username}</div>
-        <div>{user.companyName}</div>
+        <p className="font-bold text-gray-600">{user.username}</p>
+        <p>{user.companyName}</p>
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import ActivityCounter from '@/components/ActivityCounter';
 import { AllowanceList, SalaryInfo } from '@/app/salary/SalaryComponents';
 import PagingIndicator from '@/components/PagingIndicator';
 import { NextSearchParams } from '@/repo/ExternalParams';
+import CreationTime from '@/components/CreationTime';
 
 interface CompanyDetailPageProps {
   params: {

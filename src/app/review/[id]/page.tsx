@@ -8,6 +8,7 @@ import Rating from '@/components/Rating';
 import ActivityCounter from '@/components/ActivityCounter';
 import { PointsSection } from '@/components/PointsSection';
 import { Metadata, ResolvingMetadata } from 'next';
+import CreationTime from '@/components/CreationTime';
 
 interface ReviewDetailPageProps {
   params: {
@@ -66,6 +67,8 @@ export default async function ReviewDetailPage({
           dislike={reviewData.inner.numberOfDislikes}
           comment={reviewData.inner.numberOfComments}
         />
+
+        <CreationTime time={reviewData.inner.creationTime} />
       </Card>
 
       <CommentSection comments={commentsData} />

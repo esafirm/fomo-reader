@@ -4,6 +4,7 @@ import User from '@/components/User';
 import Rating from '@/components/Rating';
 import ActivityCounter from '@/components/ActivityCounter';
 import { PointsSection } from '@/components/PointsSection';
+import CreationTime from '@/components/CreationTime';
 
 export default async function ReviewsPage() {
   const reviews = (await DataFetcher.getCompanyReviews()).data;
@@ -34,6 +35,8 @@ export default async function ReviewsPage() {
               dislike={review.inner.numberOfDislikes}
               comment={review.inner.numberOfComments}
             />
+
+            <CreationTime time={review.inner.creationTime} />
           </Card>
         ))}
     </div>
