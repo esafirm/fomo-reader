@@ -8,4 +8,6 @@ export async function executeSql(query: string) {
   console.log('==> SQL', query);
   const res = await sql(query);
   console.log('<== SQL', res);
+
+  return res;
 }

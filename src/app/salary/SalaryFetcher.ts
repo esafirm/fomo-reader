@@ -1,6 +1,7 @@
 import { executeSql } from '@/repo/DatabaseClient';
 import DataFetcher from '@/repo/DataFetcher';
 import { Salary } from '@/repo/DataTypes';
+import { standardizeJobTitle } from './SalaryFetcherUtils';
 
 export async function getSalaries(page: number): Promise<Salary[]> {
   const res = await DataFetcher.getSalaries(page);
@@ -15,7 +16,7 @@ export async function getSalaries(page: number): Promise<Salary[]> {
         equity: s.inner.annualMarketPriceEquityInRupiah,
         companyName: s.inner.user.companyName,
         yoe: s.inner.yearsOfExperience,
-        jobTitle: s.inner.jobTitle.value,
+        jobTitle: standardizeJobTitle(s.inner.jobTitle.value),
       };
     })
   );
